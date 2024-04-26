@@ -34,6 +34,12 @@ def create_user():
 
     return new_user.to_dict(), 201
 
+@app.route('/users/me')
+@token_auth.login_required
+def get_me():
+    user = token_auth.current_user()
+    return user.to_dict()
+
 # Edit User
 @app.route('/users/<int:id>', methods=['PUT'])
 @token_auth.login_required()
