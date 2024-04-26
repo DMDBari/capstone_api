@@ -43,6 +43,8 @@ class User(db.Model):
         allowed_fields = {'username', 'email', 'password'}
         for key, value in kwargs.items():
             if key in allowed_fields:
+                if key == 'password':
+                    value = generate_password_hash(value)
                 setattr(self, key, value)
             self.save()
 
